@@ -86,3 +86,9 @@ This project showcases rapid learning, problem-solving, and the ability to build
 
 ## 📜 License
 MIT License - See LICENSE file for details
+
+## Live Demo
+- **Website**: [meetsproutbot.com](https://meetsproutbot.com)
+- **Source Code**: Available in this repository
+- **Documentation**: See [docs/SETUP.md](docs/SETUP.md)
+
