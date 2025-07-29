@@ -1,0 +1,35 @@
+{
+  "model_type": "random_forest",
+  "trained_at": "2025-07-28T20:06:04.836788",
+  "performance": {
+    "mae": 0.14068965517241405,
+    "r2": 0.9964380126673108
+  },
+  "features": [
+    "hour_of_day",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week_num",
+    "is_weekend",
+    "hours_since_start",
+    "moisture_percent",
+    "moisture_rolling_mean_3",
+    "moisture_rolling_mean_10",
+    "moisture_change",
+    "moisture_change_rate",
+    "moisture_deviation_daily",
+    "hours_since_watering",
+    "days_since_watering",
+    "cumulative_waterings",
+    "waterings_last_24h",
+    "raw_sensor_value",
+    "sensor_rolling_mean_5",
+    "sensor_stability",
+    "sensor_zscore",
+    "hour_moisture_interaction",
+    "weekend_moisture_interaction",
+    "deficit_time_interaction"
+  ],
+  "training_samples": 345,
+  "test_samples": 87
+}

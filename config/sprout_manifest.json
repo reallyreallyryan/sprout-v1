@@ -1,0 +1,40 @@
+{
+  "robot_identity": {
+    "name": "Sprout",
+    "version": "1.0.0",
+    "description": "Autonomous plant care robot"
+  },
+  "moisture_sensor": {
+    "dry_threshold": 700,
+    "wet_threshold": 600,
+    "read_interval_seconds": 300,
+    "adc_channel": 0,
+    "calibration": {
+      "air_value": 850,
+      "water_value": 450
+    }
+  },
+  "pump": {
+    "gpio_pin": 17,
+    "activation_duration_seconds": 5,
+    "cooldown_period_seconds": 3600,
+    "max_pump_time_seconds": 30
+  },
+  "led": {
+    "enabled": true,
+    "gpio_pin": 23,
+    "startup_blink": true,
+    "startup_blink_count": 3
+  },
+  "logging": {
+    "enabled": true,
+    "file_path": "sprout_log.txt",
+    "max_file_size_mb": 10,
+    "rotation_count": 3
+  },
+  "system": {
+    "startup_delay_seconds": 10,
+    "error_retry_delay_seconds": 60,
+    "graceful_shutdown_timeout_seconds": 5
+  }
+}

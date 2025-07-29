@@ -1,0 +1,21 @@
+==================================================
+SPROUT DATA ANALYSIS SUMMARY
+==================================================
+Analysis Date: 2025-07-28 20:04:51
+Total Readings: 735
+Date Range: 2025-07-24 04:24:23.800594 to 2025-07-28 20:00:51.907675
+
+MOISTURE STATISTICS:
+  Average: 44.5%
+  Std Dev: 6.5%
+  Min: 27.5%
+  Max: 65.2%
+
+WATERING STATISTICS:
+  Total Events: 10
+  Total Duration: 50s
+  Avg Duration: 5.0s
+
+TIME PATTERNS:
+  Most Active Hour: 15:00
+  Most Common Watering Hour: 8:00

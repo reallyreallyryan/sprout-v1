@@ -1,0 +1,53 @@
+{
+  "created_at": "2025-07-28T20:05:11.164487",
+  "total_records": 735,
+  "total_features": 50,
+  "feature_groups": {
+    "temporal": [
+      "hour_of_day",
+      "hour_sin",
+      "hour_cos",
+      "day_of_week_num",
+      "is_weekend",
+      "hours_since_start"
+    ],
+    "moisture": [
+      "moisture_percent",
+      "moisture_rolling_mean_3",
+      "moisture_rolling_mean_10",
+      "moisture_change",
+      "moisture_change_rate",
+      "moisture_deviation_daily"
+    ],
+    "watering": [
+      "hours_since_watering",
+      "days_since_watering",
+      "cumulative_waterings",
+      "waterings_last_24h"
+    ],
+    "sensor": [
+      "raw_sensor_value",
+      "sensor_rolling_mean_5",
+      "sensor_stability",
+      "sensor_zscore"
+    ],
+    "interaction": [
+      "hour_moisture_interaction",
+      "weekend_moisture_interaction",
+      "deficit_time_interaction"
+    ]
+  },
+  "target_variables": [
+    "will_water_next_hour",
+    "next_moisture",
+    "should_water"
+  ],
+  "feature_stats": {
+    "moisture_avg": 44.45442176870748,
+    "total_waterings": 10,
+    "sensor_range": [
+      589,
+      750
+    ]
+  }
+}
