@@ -2,21 +2,51 @@
 
 An intelligent plant watering system that learns from sensor data to optimize plant care. Built with Raspberry Pi, featuring real-time monitoring, autonomous watering, and predictive ML models.
 
+**Meet Sprout**: [meetsproutbot.com](https://meetsproutbot.com)
+
 ## 🌟 Key Features
 
 - **Autonomous Operation**: Monitors soil moisture and waters plants automatically
-- **Machine Learning**: Predicts moisture levels with 99.2% accuracy (R²=0.992)
+- **Machine Learning**: Predicts moisture levels with 99.2% accuracy
 - **Robust Hardware**: Auto-reconnection, error recovery, LED status indicators
 - **Data Collection**: Comprehensive logging for ML training and analysis
 - **Local-First**: No cloud dependencies, fully autonomous operation
 
 ## 🏆 Project Achievements
 
-- Successfully trained ML model with only 125 data points
-- Achieved 0.16% mean absolute error in moisture prediction
-- 100% uptime after implementing reconnection logic
-- First autonomous watering within 10 seconds of deployment
-- Built complete system from zero hardware experience in 8 days
+- **Development Time**: 7 days from concept to ML deployment
+- **Accuracy**: 99.2% R² score on moisture prediction
+- **Prediction Error**: 0.16% mean absolute error
+- **Reliability**: 100% uptime after v1.1 improvements  
+- **Data Efficiency**: Only needed 125 samples for accurate model
+
+## 🏗️ System Architecture
+
+```
+[Moisture Sensor] → [Pico ADC] → [Raspberry Pi 4] → [Water Pump]
+                         ↓               ↓
+                   JSON via UART    ML Predictions
+                                        ↓
+                                   Data Logging → CSV
+```
+
+## 📊 Machine Learning Results
+
+### Moisture Monitoring Over Time
+![Moisture Timeline](outputs/sprout_moisture_timeline.png)
+*Successfully maintained optimal moisture levels with autonomous watering events (blue triangles)*
+
+### ML Model Performance
+![ML Predictions](outputs/sprout_ml_predictions.png)
+*Random Forest model achieving 99.2% accuracy with feature importance analysis*
+
+### Daily Patterns Analysis
+![Daily Patterns](outputs/sprout_daily_patterns.png)
+*Discovered moisture loss patterns by hour and day of week*
+
+### Sensor Calibration
+![Sensor Calibration](outputs/sprout_sensor_calibration.png)
+*Validated capacitive sensor readings with proper soil calibration*
 
 ## 🛠️ Technical Stack
 
@@ -26,7 +56,6 @@ An intelligent plant watering system that learns from sensor data to optimize pl
 - Capacitive Moisture Sensor v1.2
 - Peristaltic Pump with 5V Relay
 - Status LED Indicator
-- Basil Plant
 
 ### Software
 - Python 3.9+
@@ -35,13 +64,13 @@ An intelligent plant watering system that learns from sensor data to optimize pl
 - matplotlib, seaborn for visualization
 - Custom serial protocol for Pi-Pico communication
 
-## 📊 Results
+## 💡 Key Learnings & Problem-Solving
 
-- **Data Collected**: 700+ readings over 8 days
-- **ML Accuracy**: 99.2% variance explained (R²=0.992)
-- **Prediction Error**: 0.16% MAE
-- **Watering Efficiency**: Maintains optimal 40-50% moisture
-- **Response Time**: <10 seconds from detection to action
+- **Hardware Challenge**: Discovered Pi 4 lacks ADC → Solved with Pico microcontroller
+- **Serial Communication**: Debugged permission issues and implemented robust reconnection
+- **Sensor Surprise**: Learned capacitive sensors don't work with pure water, only soil
+- **ML with Limited Data**: Used feature engineering to achieve high accuracy with minimal samples
+- **Production Systems**: Implemented logging, error recovery, and system deployment
 
 ## 🚀 Quick Start
 
@@ -58,16 +87,10 @@ python3 src/utils/calibrate_capacitive.py
 python3 src/core/sprout_robust.py
 ```
 
-## 📈 Machine Learning Pipeline
+## 📁 Project Structure
 
-Data Collection: Automated logging of sensor readings
-Feature Engineering: 50+ features from 16 raw measurements
-Model Training: Random Forest achieving 99.2% accuracy
-Visualization: Comprehensive analysis of patterns
-
-See ML performance visualizations in the outputs/ directory.
-📁 Project Structure
-sprout_portfolio_v1/
+```
+sprout-v1/
 ├── src/              # Source code
 │   ├── core/         # Main system components
 │   ├── ml/           # Machine learning pipeline
@@ -78,17 +101,28 @@ sprout_portfolio_v1/
 ├── tests/            # Test scripts
 ├── outputs/          # Visualizations and reports
 └── docs/             # Documentation
+```
+
+## 🌐 Links
+
+- **Live Demo**: [meetsproutbot.com](https://meetsproutbot.com)
+- **Documentation**: [Setup Guide](docs/SETUP.md)
+- **ML Analysis**: [View Results](outputs/)
 
 ## 👨‍💻 Developer
-Ryan Kelems
-Full-stack engineer passionate about IoT, machine learning, and building things that work.
-This project showcases rapid learning, problem-solving, and the ability to build complete systems from scratch.
+
+**Ryan Kelems**  
+Full-stack developer passionate about IoT, machine learning, and building things that work.
+
+This project showcases:
+- Rapid learning ability (hardware → ML in 7 days)
+- End-to-end system design
+- Problem-solving and debugging skills
 
 ## 📜 License
-MIT License - See LICENSE file for details
 
-## Live Demo
-- **Website**: [meetsproutbot.com](https://meetsproutbot.com)
-- **Source Code**: Available in this repository
-- **Documentation**: See [docs/SETUP.md](docs/SETUP.md)
+MIT License - See [LICENSE](LICENSE) file for details
 
+---
+
+*"From 'I've never done hardware before' to a working ML system in 7 days. The best time to plant a tree was 20 years ago. The second best time is now."*
