@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprout - A Wooden Robot That Waters Plants</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --leaf-green: #2d5016;
+            --sprout-green: #5a7c2f;
+            --soil-brown: #3e2723;
+            --wood-tan: #8d6e63;
+            --paper-cream: #fefef2;
+            --ink-black: #1a1a1a;
+            --water-blue: #4a90a4;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--paper-cream);
+            color: var(--ink-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(180deg, var(--paper-cream) 0%, rgba(254,254,242,0.9) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, var(--sprout-green) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--water-blue) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--wood-tan) 0%, transparent 50%);
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .sprout-visual {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: gentle-float 6s ease-in-out infinite;
+        }
+
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sprout-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: normal;
+            margin-bottom: 1rem;
+            color: var(--leaf-green);
+            text-shadow: 2px 2px 0px rgba(90,124,47,0.2);
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: var(--sprout-green);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: var(--soil-brown);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--leaf-green);
+            background: transparent;
+            color: var(--leaf-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--leaf-green);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--paper-cream);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Full width backgrounds for certain sections */
+        .full-width-section {
+            max-width: none;
+            width: 100%;
+            margin: 0;
+            padding: 4rem 0;
+        }
+
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--leaf-green);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* Origin Story */
+        .origin-story {
+            background: rgba(90,124,47,0.05);
+            padding: 3rem 0;
+            border-left: 4px solid var(--sprout-green);
+        }
+
+        .origin-story .section-title::before {
+            content: '📜';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--soil-brown);
+        }
+
+        .story-text em {
+            color: var(--leaf-green);
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        /* How It Works */
+        .how-it-works .section-title::before {
+            content: '🧠';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .tech-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-block {
+            background: rgba(77,142,173,0.08);
+            padding: 1.5rem;
+            border: 1px dashed var(--water-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tech-block h3 {
+            color: var(--water-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .tech-block p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .learned-section {
+            background: rgba(141,110,99,0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0;
+            border: 2px solid var(--wood-tan);
+        }
+
+        .learned-section h3 {
+            color: var(--wood-tan);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .learned-list {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .learned-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .learned-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--sprout-green);
+        }
+
+        /* Why It Matters */
+        .why-matters {
+            background: linear-gradient(135deg, rgba(45,80,22,0.03) 0%, rgba(74,144,164,0.03) 100%);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .why-matters .section-title::before {
+            content: '🌿';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .why-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .why-point {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .why-point strong {
+            color: var(--leaf-green);
+        }
+
+        /* Gallery */
+        .gallery .section-title::before {
+            content: '📸';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            background: var(--soil-brown);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--paper-cream);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Other Projects */
+        .other-projects .section-title::before {
+            content: '📡';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .project-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            border: 2px solid var(--sprout-green);
+            padding: 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--ink-black);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::after {
+            content: '→';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: var(--sprout-green);
+            color: var(--paper-cream);
+            transform: translateY(-5px);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+            right: 0.5rem;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hire Me Section */
+        .hire-me {
+            background: var(--leaf-green);
+            color: var(--paper-cream);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .hire-me .section-title {
+            color: var(--paper-cream);
+            justify-content: center;
+        }
+
+        .hire-me .section-title::before {
+            content: '💼';
+            font-size: 2rem;
+            width: auto;
+            height: auto;
+            background: none;
+        }
+
+        .hire-text {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .hire-text strong {
+            color: var(--water-blue);
+        }
+
+        .hire-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hire-cta .cta-button {
+            border-color: var(--paper-cream);
+            color: var(--paper-cream);
+        }
+
+        .hire-cta .cta-button:hover {
+            background: var(--paper-cream);
+            color: var(--leaf-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.9rem;
+            color: var(--sprout-green);
+            border-top: 1px dashed var(--sprout-green);
+        }
+
+        .footer-signature {
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .tech-blocks {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animated elements */
+        .water-drop {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background: var(--water-blue);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0;
+            animation: drop 3s ease-in-out infinite;
+        }
+
+        @keyframes drop {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="sprout-visual">
+            <svg class="sprout-svg" viewBox="0 0 300 300">
+                <!-- Pot -->
+                <path d="M100 200 Q100 250 150 250 Q200 250 200 200 L190 180 L110 180 Z" fill="#8d6e63" stroke="#3e2723" stroke-width="2"/>
+                <!-- Soil -->
+                <ellipse cx="150" cy="185" rx="40" ry="10" fill="#3e2723"/>
+                <!-- Plant stem -->
+                <line x1="150" y1="185" x2="150" y2="120" stroke="#5a7c2f" stroke-width="4"/>
+                <!-- Leaves -->
+                <path d="M150 140 Q130 130 120 140 Q130 150 150 140" fill="#2d5016"/>
+                <path d="M150 120 Q170 110 180 120 Q170 130 150 120" fill="#2d5016"/>
+                <!-- Robot features -->
+                <rect x="120" y="150" width="60" height="40" fill="#4a90a4" stroke="#1a1a1a" stroke-width="2" rx="5"/>
+                <!-- Robot eyes -->
+                <circle cx="135" cy="165" r="5" fill="#fefef2"/>
+                <circle cx="165" cy="165" r="5" fill="#fefef2"/>
+                <circle cx="135" cy="165" r="3" fill="#1a1a1a"/>
+                <circle cx="165" cy="165" r="3" fill="#1a1a1a"/>
+                <!-- Water indicator -->
+                <rect x="145" y="175" width="10" height="5" fill="#4a90a4" opacity="0.6"/>
+            </svg>
+            <div class="water-drop" style="left: 145px; top: 180px; animation-delay: 0s;"></div>
+            <div class="water-drop" style="left: 150px; top: 180px; animation-delay: 1s;"></div>
+            <div class="water-drop" style="left: 155px; top: 180px; animation-delay: 2s;"></div>
+        </div>
+        
+        <h1>Sprout</h1>
+        <p class="tagline">A Wooden Robot That Waters Plants and Learns From Them</p>
+        
+        <p class="hero-text">
+            Meet Sprout. My first home-made garden robot. Built from a Raspberry Pi, a few of wires, and a lot of 'what if'.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="#how-it-works" class="cta-button">[ See how it works ]</a>
+            <a href="#other-projects" class="cta-button">[ Other Projects ]</a>
+            <a href="#hire-me" class="cta-button">[ Contact / Collaborate ]</a>
+        </div>
+    </section>
+
+    <!-- Origin Story -->
+    <section class="origin-story full-width-section">
+        <div class="section-content">
+            <h2 class="section-title">The Origin Story</h2>
+            <div class="story-text">
+                <p>I wanted to build something tangible. Not another AI wrapped tool in the cloud but something with a <em>body</em>, a <em>purpose</em>, and a <em>job</em>. That's where Sprout came from.</p>
+                
+                <p>I started with a basil seed, a leaking reservoir, and no formal training. And now? It waters itself!</p>
+                
+                <p>My journey began when I noticed my plants wilting while I got lost in projects. But instead of just setting reminders, I thought: <em>'what if the plant could take care of itself?'</em></p>
+                
+                <p>So here it is. A robot that lives with the plant and helps it thrive.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        
+        <div class="tech-blocks">
+            <div class="tech-block">
+                <h3>Hardware</h3>
+                <p>Raspberry Pi 4, soil moisture sensor, peristaltic pump</p>
+            </div>
+            
+            <div class="tech-block">
+                <h3>Logic</h3>
+                <p>Moisture threshold → triggers pump → logs timestamp</p>
+            </div>
+            
+            <div class="tech-block">
+                <h3>Software</h3>
+                <p>Python running locally, ML for watering predictions</p>
+            </div>
+            
+            <div class="tech-block">
+                <h3>Logging</h3>
+                <p>Local CSVs, no cloud</p>
+            </div>
+            
+            <div class="tech-block">
+                <h3>Future Plans</h3>
+                <p>Add Solar, more sensors, and make Sprout move!</p>
+            </div>
+        </div>
+        
+        <div class="learned-section">
+            <h3>What I Didn't Know (But Learned)</h3>
+            <ul class="learned-list">
+                <li>What a GPIO pin is</li>
+                <li>How to wire a relay</li>
+                <li>Testing a peristaltic pump flow</li>
+                <li>How to debug weird moisture sensor behavior</li>
+                <li>Plants are surprisingly forgiving</li>
+                <li>That I could build a <em>robot</em></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Why It Matters -->
+    <section class="why-matters full-width-section">
+        <div class="section-content">
+            <h2 class="section-title">Why It Matters</h2>
+            <div class="why-points">
+                <p class="why-point">
+                    Sprout is my vision of what is becoming possible. A symbol of the <strong>changing future</strong>.
+                </p>
+                <p class="why-point">
+                    It's an experiment in <strong>TinyML</strong>, <strong>off-grid autonomy</strong>, and <strong>local intelligence</strong>.
+                </p>
+                <p class="why-point">
+                    It's also a bit of DIY, curiosity, and a belief that maybe anything is possible.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <h2 class="section-title">Gallery & Notes</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <span>Day 1: First wiring attempt<br>(spoiler: it didn't work)</span>
+            </div>
+            <div class="gallery-item">
+                <span>Testing pump flow rate<br>3ml per second</span>
+            </div>
+            <div class="gallery-item">
+                <span>Moisture readings<br>Dry: 700, Wet: 300</span>
+            </div>
+            <div class="gallery-item">
+                <span>First successful watering<br>Plant survived!</span>
+            </div>
+            <div class="gallery-item">
+                <span>Wood housing v1<br>Built from scrap pine</span>
+            </div>
+            <div class="gallery-item">
+                <span>30-day watering log<br>Pattern emerging...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hire Me -->
+    <section id="hire-me" class="hire-me full-width-section">
+        <div class="section-content">
+            <h2 class="section-title">A Bit About Me</h2>
+            <p class="hire-text">
+                I'm not a traditional, in the least. But I build, I learn, and I ship. I'm someone who can <strong>prototype</strong>, <strong>solve weird problems</strong>, and <strong>turn ideas into reality</strong>.
+            </p>
+            <div class="hire-cta">
+                <a href="mailto:nectarstack@gmail.com" class="cta-button">[ Email Me ]</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Built with sun, soil, and software.</p>
+        <p class="footer-signature">© 2025 NectarStack</p>
+    </footer>
+
+    <script>
+        // Add some interactive touches
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Remove parallax to prevent overlap issues
+        // Keeping other scroll effects minimal
+
+        // Gallery item hover effect
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.05)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
